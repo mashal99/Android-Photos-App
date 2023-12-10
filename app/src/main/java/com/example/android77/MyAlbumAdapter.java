@@ -1,4 +1,4 @@
-package com.example.android77.utils;
+package com.example.android77;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,5 +49,4 @@ public class MyAlbumAdapter extends RecyclerView.Adapter<MyAlbumAdapter.AlbumVie
             textView = v.findViewById(android.R.id.text1);
         }
     }
-}
 }
