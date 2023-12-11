@@ -6,10 +6,8 @@
 package com.example.android77;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -141,31 +139,6 @@ public class HomeScreen extends AppCompatActivity {
                 showEditAlbum();
             }
         });
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("firstTime", true)) {
-            try {
-                String stockAlbumName = "stock";
-                FileOutputStream fileOutputStream = openFileOutput(stockAlbumName + ".list", MODE_PRIVATE);
-                HomeScreen.albums.add(stockAlbumName);
-                String str = "android.resource://com.AJ_David.photos/raw/stock1";
-                addPhoto(str, fileOutputStream);
-                str = "android.resource://com.AJ_David.photos/raw/stock2";
-                addPhoto(str, fileOutputStream);
-                str = "android.resource://com.AJ_David.photos/raw/stock3";
-                addPhoto(str, fileOutputStream);
-                str = "android.resource://com.AJ_David.photos/raw/stock4";
-                addPhoto(str, fileOutputStream);
-                str = "android.resource://com.AJ_David.photos/raw/stock5";
-                addPhoto(str, fileOutputStream);
-            } catch (FileNotFoundException e){
-                e.printStackTrace();
-            }
-            // mark first time has ran.
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("firstTime", false);
-            editor.commit();
-        }
 
         write();
     }

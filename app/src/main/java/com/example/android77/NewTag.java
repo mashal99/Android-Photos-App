@@ -18,93 +18,75 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class NewTag extends AppCompatActivity {
     private RadioButton loc, person;
     private RadioGroup rg;
     private EditText tagData;
     private Button send, cancel;
-    private int type = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_tag);
 
-        rg = (RadioGroup) findViewById(R.id.radiogroup);
+        rg = findViewById(R.id.radiogroup);
 
-        loc = (RadioButton) findViewById(R.id.location);
-        person = (RadioButton) findViewById(R.id.person);
+        loc = findViewById(R.id.location);
+        person = findViewById(R.id.person);
 
-        tagData = (EditText) findViewById(R.id.data);
-        send = (Button) findViewById(R.id.add);
-        cancel = (Button) findViewById(R.id.cancel);
+        tagData = findViewById(R.id.data);
+        send = findViewById(R.id.add);
+        cancel = findViewById(R.id.cancel);
 
         cancel.setOnClickListener(view -> finish());
 
         send.setOnClickListener(view -> {
-            ArrayList<String> tags = new ArrayList<>();
-
-            for (Tag t: ImageAdapter.uris.get(SlideShowView.index).tags) {
-                if (!(tags.contains(t.toString()))){
-                    tags.add(t.toString());
-                }
+            String newTagData = tagData.getText().toString();
+            if (newTagData.equals("")) {
+                Toast.makeText(getApplicationContext(), "Please enter a tag", Toast.LENGTH_SHORT).show();
+                return;
             }
 
-            type = rg.getCheckedRadioButtonId();
-            if (!tagData.getText().toString().equals("")) {
-                switch (type) {
-                    case 2131165275:
-                        if (tags.contains("Location=" + tagData.getText().toString())) {
-                            Toast.makeText(getApplicationContext(), "This tag already exists", Toast.LENGTH_SHORT).show();
-                        } else {
-                            ImageAdapter.uris.get(SlideShowView.index).addTag("Location=" + tagData.getText().toString()); SlideShowView.gridView.setAdapter(SlideShowView.tagAdapter);
-                            write();
-                            finish();
-                        }
+            int selectedId = rg.getCheckedRadioButtonId();
+            String tagType = selectedId == R.id.location ? "Location=" : "Person=";
+            String fullTag = tagType + newTagData;
 
-                        break;
-                    case 2131165294:
-                        if (tags.contains("Person=" + tagData.getText().toString())) {
-                            Toast.makeText(getApplicationContext(), "This tag already exists", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            ImageAdapter.uris.get(SlideShowView.index).addTag("Person=" + tagData.getText().toString());
-                            SlideShowView.gridView.setAdapter(SlideShowView.tagAdapter);
-                            write();
-                            finish();
-                        }
-                        break;
-                    default:
-                        break;
-
-                }
+            if (isTagExists(fullTag)) {
+                Toast.makeText(getApplicationContext(), "This tag already exists", Toast.LENGTH_SHORT).show();
+            } else {
+                ImageAdapter.uris.get(SlideShowView.index).addTag(fullTag);
+                SlideShowView.gridView.setAdapter(SlideShowView.tagAdapter);
+                write();
+                finish();
             }
         });
     }
 
-    public void write(){
+    private boolean isTagExists(String tag) {
+        ArrayList<String> tags = new ArrayList<>();
+
+        for (Tag t : ImageAdapter.uris.get(SlideShowView.index).tags) {
+            tags.add(t.toString());
+        }
+        return tags.contains(tag);
+    }
+
+    public void write() {
         try {
             ArrayList<Photo> uris = AlbumView.imgAdapter.getPhotos();
-
-            String str = "";
-            FileOutputStream fileOutputStream = openFileOutput(HomeScreen.albumName+".list", MODE_PRIVATE);
+            StringBuilder str = new StringBuilder();
+            FileOutputStream fileOutputStream = openFileOutput(HomeScreen.albumName + ".list", MODE_PRIVATE);
             for (Photo u : uris) {
-                if (str.equals("")) {
-                    str = u.getUri().toString();
-
+                if (str.length() > 0) {
+                    str.append("\n");
                 }
-                else {
-                    str = str + "\n" + u.getUri().toString();
-                }
-                for (Tag t : u.tags){
-                    str = str + "\nTAG:" + t.toString();
+                str.append(u.getUri().toString());
+                for (Tag t : u.tags) {
+                    str.append("\nTAG:").append(t.toString());
                 }
             }
-            fileOutputStream.write(str.getBytes());
-
-        }
-        catch(ArrayIndexOutOfBoundsException | IOException e){
+            fileOutputStream.write(str.toString().getBytes());
+        } catch (ArrayIndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
         }
     }

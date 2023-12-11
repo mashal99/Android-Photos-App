@@ -8,7 +8,6 @@ package com.example.android77;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,14 +16,12 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
 
 public class Search extends AppCompatActivity {
     private RadioButton loc, person;
@@ -40,169 +37,125 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-
-        rg = (RadioGroup) findViewById(R.id.radiogroup);
-
-        loc = (RadioButton) findViewById(R.id.location);
-        person = (RadioButton) findViewById(R.id.person);
-
-        tagData = (EditText) findViewById(R.id.data);
-        search = (Button) findViewById(R.id.search);
-        cancel = (Button) findViewById(R.id.cancel);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<String> tags = new ArrayList<>();
-                searched.clear();
-                sList.clear();
-                int i = 0;
-                read();
-
-                type = rg.getCheckedRadioButtonId();
-                if (!tagData.getText().toString().equals("")) {
-
-                    switch (type) {
-                        case 2131165275:
-                            for (Photo p : searched) {
-                                for (Tag t : p.tags){
-                                    if (t.getData().contains(tagData.getText().toString()) &&
-                                            t.type.equals("Location")){
-                                        sList.add(p);
-                                        i++;
-                                        break;
-                                    }
-                                }
-                            }
-                            write();
-                            finish();
-                            break;
-                        case 2131165294:
-                            for (Photo p : searched) {
-                                for (Tag t : p.tags){
-                                    if (t.getData().contains(tagData.getText().toString()) &&
-                                            t.type.equals("Person")){
-                                        sList.add(p);
-                                        i++;
-                                        break;
-                                    }
-                                }
-                            }
-                            write();
-                            finish();
-                            break;
-                        default:
-                            break;
-
-                    }
-
-                    Intent intent = new Intent(getApplicationContext(), AlbumView.class);
-                    HomeScreen.albumName="SearchRes";
-                    startActivity(intent);
-
-                }
-            }
-        });
-
+        initializeViews();
+        setButtonListeners();
         read();
     }
 
+    private void initializeViews() {
+        rg = findViewById(R.id.radiogroup);
+        loc = findViewById(R.id.location);
+        person = findViewById(R.id.person);
+        tagData = findViewById(R.id.data);
+        search = findViewById(R.id.search);
+        cancel = findViewById(R.id.cancel);
+    }
+
+    private void setButtonListeners() {
+        cancel.setOnClickListener(view -> finish());
+
+        search.setOnClickListener(view -> {
+            ArrayList<String> tags = new ArrayList<>();
+            searched.clear();
+            sList.clear();
+            read();
+            performSearch();
+        });
+    }
+
+    private void performSearch() {
+        type = rg.getCheckedRadioButtonId();
+        if (!tagData.getText().toString().equals("")) {
+            switch (type) {
+                case R.id.loc: // Use resource IDs instead of hardcoded values
+                    addPhotosToList("Location");
+                    break;
+                case R.id.person:
+                    addPhotosToList("Person");
+                    break;
+                default:
+                    break;
+            }
+            write();
+            finish();
+            startAlbumView();
+        }
+    }
+
+    private void addPhotosToList(String tagType) {
+        for (Photo p : searched) {
+            for (Tag t : p.tags) {
+                if (t.getData().contains(tagData.getText().toString()) &&
+                        t.type.equals(tagType)) {
+                    sList.add(p);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void startAlbumView() {
+        Intent intent = new Intent(getApplicationContext(), AlbumView.class);
+        HomeScreen.albumName = "SearchRes";
+        startActivity(intent);
+    }
+
     public void read() {
-        String[] strings = {};
         ArrayList<String> masterList = new ArrayList<>();
 
-        try {
-            FileInputStream fileInputStream = openFileInput("albums.albm");
+        try (FileInputStream fileInputStream = openFileInput("albums.albm");
+             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
 
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            ArrayList<String> list = new ArrayList<String>();
             String lineIn;
-
             while ((lineIn = bufferedReader.readLine()) != null) {
-                list.add(lineIn);
+                processLine(lineIn, masterList);
             }
-
-            for (String s : list) {
-                try {
-                    FileInputStream fileInputStream2 = openFileInput(s + ".list");
-
-                    InputStreamReader inputStreamReader2 = new InputStreamReader(fileInputStream2);
-                    BufferedReader bufferedReader2 = new BufferedReader(inputStreamReader2);
-
-                    while ((lineIn = bufferedReader2.readLine()) != null) {
-                        masterList.add(lineIn);
-                    }
-
-
-                }
-                catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            for (String input: masterList) {
-                if (input.substring(0,4).equals("TAG:")) {
-                    searched.get(searched.size() - 1).addTag(input.substring(4));
-                }
-                else {
-                    searched.add(new Photo(Uri.parse(input)));
-                }
-            }
-            if(true){}
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void write(){
-        try {
+    private void processLine(String albumName, ArrayList<String> masterList) {
+        try (FileInputStream fileInputStream2 = openFileInput(albumName + ".list");
+             InputStreamReader inputStreamReader2 = new InputStreamReader(fileInputStream2);
+             BufferedReader bufferedReader2 = new BufferedReader(inputStreamReader2)) {
 
-            String str = "";
-            new File(getFilesDir() + File.separator + "SearchRes.list").delete();
-            FileOutputStream fileOutputStream = openFileOutput("SearchRes.list", MODE_PRIVATE);
-            for (int i = 0; i < sList.size();i++) {
+            String lineIn;
+            while ((lineIn = bufferedReader2.readLine()) != null) {
+                masterList.add(lineIn);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String input : masterList) {
+            if (input.startsWith("TAG:")) {
+                searched.get(searched.size() - 1).addTag(input.substring(4));
+            } else {
+                searched.add(new Photo(Uri.parse(input)));
+            }
+        }
+    }
+
+    public void write() {
+        try (FileOutputStream fileOutputStream = openFileOutput("SearchRes.list", MODE_PRIVATE)) {
+            StringBuilder strBuilder = new StringBuilder();
+            for (Photo u : sList) {
                 ArrayList<String> tgs = new ArrayList<>();
-                Photo u = sList.get(i);
-                if (str.equals("")) {
-                    str = u.getUri().toString();
-                }
-                else {
-                    str = str + "\n" + u.getUri().toString();
-                }
-                for (Tag t : u.tags){
+                strBuilder.append(u.getUri().toString()).append("\n");
+                for (Tag t : u.tags) {
                     if (!tgs.contains(t.toString())) {
-                        str = str + "\nTAG:" + t.toString();
+                        strBuilder.append("TAG:").append(t.toString()).append("\n");
                         tgs.add(t.toString());
                     }
                 }
             }
-            fileOutputStream.write(str.getBytes());
-
-        }
-        catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
-        catch(ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
-        }
-        catch(IOException e){
+            fileOutputStream.write(strBuilder.toString().getBytes());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-
-//need to check this
