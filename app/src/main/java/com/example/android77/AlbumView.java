@@ -1,8 +1,3 @@
-/*
- * Name: Ahmed Mashaal
- * ID: amm884
- */
-
 package com.example.android77;
 
 import android.annotation.SuppressLint;
@@ -57,7 +52,7 @@ import java.util.ArrayList;
         if (HomeScreen.albumName.equals("SearchRes")){
             add.setVisibility(View.INVISIBLE);
         }
-        copy = findViewById(R.id.Copy);
+        copy = findViewById(R.id.copy);
         copy.setVisibility(View.INVISIBLE);
         paste = (Button) findViewById(R.id.paste);
         paste.setVisibility(HomeScreen.isCopy ? View.VISIBLE : View.INVISIBLE);

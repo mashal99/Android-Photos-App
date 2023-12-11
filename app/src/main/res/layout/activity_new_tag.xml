@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewTag"
-    android:padding="8dp"
-    android:layout_gravity="center">
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@color/background_material_light">
 
     <RadioGroup
         android:id="@+id/radiogroup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
 
         <RadioButton
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
-            android:layout_weight="2"
-            android:text="Location" />
+            android:text="Location"
+            android:layout_marginEnd="16dp"/>
 
         <RadioButton
             android:id="@+id/person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="2"
-            android:text="Person"
-            android:layout_marginBottom="70dp" />
+            android:text="Person" />
     </RadioGroup>
 
-    <EditText
-        android:id="@+id/data"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dataLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Tag"
-        android:paddingBottom="30dp"
-        android:textColorHint="@color/colorPrimary" />
+        android:layout_marginBottom="20dp">
 
-    <Button
-        android:id="@+id/add"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Tag"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="Add Tag" />
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="Cancel"
-        android:layout_marginBottom="30dp"
-        android:textColor="@color/colorAccent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add Tag"
+            android:layout_marginEnd="8dp"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textColor="@color/colorAccent"/>
+    </LinearLayout>
 </LinearLayout>

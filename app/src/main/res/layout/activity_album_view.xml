@@ -11,65 +11,95 @@
     <GridView
         android:id="@+id/GridView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:numColumns="3"
-        android:verticalSpacing="10dp"  />
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:padding="5dp"
+        android:gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="148dp"
-        android:layout_weight="1"
-        android:visibility="visible">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/Copy"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/copy"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/copy" />
+            android:text="@string/copy"
+            app:icon="@drawable/ic_copy"
+            app:iconSize="18dp"
+            app:iconPadding="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/move"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/move" />
+            android:text="@string/move"
+            app:icon="@drawable/ic_move"
+            app:iconSize="18dp"
+            app:iconPadding="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/paste"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/paste" />
+            android:text="@string/paste"
+            app:icon="@drawable/ic_paste"
+            app:iconSize="18dp"
+            app:iconPadding="8dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/add"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/add" />
+            android:text="@string/add"
+            app:icon="@drawable/ic_add"
+            app:iconSize="20dp"
+            app:iconPadding="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/display"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/display" />
+            android:text="@string/display"
+            app:icon="@drawable/ic_display"
+            app:iconSize="18dp"
+            app:iconPadding="3dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/delete"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/delete"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            app:icon="@drawable/ic_delete"
+            app:iconSize="18dp"
+            app:iconPadding="8dp"/>
     </LinearLayout>
 
 </LinearLayout>

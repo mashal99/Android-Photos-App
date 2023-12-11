@@ -11,47 +11,85 @@
     <GridView
         android:id="@+id/gridView1"
         android:layout_width="match_parent"
-        android:layout_height="396dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:gravity="center"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/search"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        app:icon="@drawable/ic_search"
+        app:iconSize="20dp"
+        app:iconPadding="8dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-        <Button
-            android:id="@+id/newButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="New" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/rename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Rename" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/newButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="New"
+                app:icon="@drawable/ic_new"
+                app:iconSize="18dp"
+                app:iconPadding="8dp"/>
 
-        <Button
-            android:id="@+id/open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Open" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/rename"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rename"
+                app:icon="@drawable/ic_edit"
+                app:iconSize="18dp"
+                app:iconPadding="8dp"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Delete"
-            android:textColor="@color/colorAccent" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/open"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Open"
+                app:icon="@drawable/ic_open"
+                app:iconSize="18dp"
+                app:iconPadding="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:textColor="@color/colorAccent"
+                app:icon="@drawable/ic_delete"
+                app:iconSize="18dp"
+                app:iconPadding="8dp"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

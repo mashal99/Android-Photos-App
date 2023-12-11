@@ -140,6 +140,8 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+
+
         write();
     }
 
