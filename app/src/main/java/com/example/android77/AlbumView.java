@@ -1,5 +1,6 @@
 package com.example.android77;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -156,15 +157,21 @@ import java.util.ArrayList;
     /**
      * After an image is open, the method is called
      */
+    @SuppressLint("WrongConstant")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE  && resultCode  == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
 
+            // Persist access permissions
+            final int takeFlags = data.getFlags()
+                    & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
             index++;
             Photo picture = new Photo(data.getData());
-            Uri imageUri = data.getData();
 
             imgAdapter.add(imageUri);
             gridView.setAdapter(imgAdapter);
@@ -212,7 +219,6 @@ import java.util.ArrayList;
      * Saves app data
      */
     public void write(){
-// FILE PATH    /data/user/0/com.AJ_David.photos/files/albums.albm
         try {
             ArrayList<Photo> uris = imgAdapter.getPhotos();
 

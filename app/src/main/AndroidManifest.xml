@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,26 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Album Activity -->
-        <activity android:name=".Album" />
-        <activity android:name=".AlbumView" />
-        <activity android:name=".EditAlbum" />
-        <activity android:name=".ImageAdapter" />
-        <activity android:name=".SlideShowView" />
-
-
-        <!-- Photo Activity -->
-        <activity android:name=".Photo" />
-
-        <!-- Search Activity -->
-        <activity android:name=".Search" />
-
-        <!-- Tag Activity -->
-        <activity android:name=".Tag" />
-
-        <!-- Create Album Activity -->
         <activity android:name=".NewAlbum" />
-
+        <activity android:name=".EditAlbum" />
+        <activity android:name=".AlbumView" />
+        <activity android:name=".SlideShowView" />
+        <activity android:name=".NewTag" />
+        <activity android:name=".Search"></activity>
     </application>
 
 </manifest>
