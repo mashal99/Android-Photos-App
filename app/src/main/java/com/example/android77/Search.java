@@ -17,14 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Search extends AppCompatActivity {
-    private RadioButton loc, person;
+    // Declaration of UI elements
+    private RadioButton person;
     private RadioGroup rg;
     private EditText tagData;
     private Button search, cancel;
@@ -37,56 +37,54 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // Initializing UI components and setting up listeners
         initializeViews();
         setButtonListeners();
-        read();
-    }
 
+        // Reading existing data
+        readAlbumData();
+    }
+    // Initialize UI components by finding them in the layout
     private void initializeViews() {
         rg = findViewById(R.id.radiogroup);
-        loc = findViewById(R.id.location);
         person = findViewById(R.id.person);
         tagData = findViewById(R.id.data);
         search = findViewById(R.id.search);
         cancel = findViewById(R.id.cancel);
     }
 
+
+    // Set listeners for buttons
     private void setButtonListeners() {
+        // Listener for the cancel button
         cancel.setOnClickListener(view -> finish());
 
+        // Listener for the search button
         search.setOnClickListener(view -> {
-            ArrayList<String> tags = new ArrayList<>();
             searched.clear();
             sList.clear();
-            read();
+            readAlbumData();
             performSearch();
         });
     }
 
+    // Handles the search functionality
     private void performSearch() {
         type = rg.getCheckedRadioButtonId();
         if (!tagData.getText().toString().equals("")) {
-            switch (type) {
-                case R.id.loc: // Use resource IDs instead of hardcoded values
-                    addPhotosToList("Location");
-                    break;
-                case R.id.person:
-                    addPhotosToList("Person");
-                    break;
-                default:
-                    break;
-            }
+            String tagType = (type == R.id.location) ? "Location" : "Person";
+            addPhotosToList(tagType);
             write();
             finish();
             startAlbumView();
         }
     }
 
+    // Adds photos to the list based on the specified tag type
     private void addPhotosToList(String tagType) {
         for (Photo p : searched) {
             for (Tag t : p.tags) {
-                if (t.getData().contains(tagData.getText().toString()) &&
-                        t.type.equals(tagType)) {
+                if (t.getData().contains(tagData.getText().toString()) && t.type.equals(tagType)) {
                     sList.add(p);
                     break;
                 }
@@ -94,63 +92,52 @@ public class Search extends AppCompatActivity {
         }
     }
 
+    // Starts the AlbumView activity
     private void startAlbumView() {
         Intent intent = new Intent(getApplicationContext(), AlbumView.class);
         HomeScreen.albumName = "SearchRes";
         startActivity(intent);
     }
 
-    public void read() {
-        ArrayList<String> masterList = new ArrayList<>();
-
+    // Reads the images from storage
+    private void readAlbumData() {
         try (FileInputStream fileInputStream = openFileInput("albums.albm");
              InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
              BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-
             String lineIn;
             while ((lineIn = bufferedReader.readLine()) != null) {
-                processLine(lineIn, masterList);
+                processAlbumFile(lineIn);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void processLine(String albumName, ArrayList<String> masterList) {
-        try (FileInputStream fileInputStream2 = openFileInput(albumName + ".list");
-             InputStreamReader inputStreamReader2 = new InputStreamReader(fileInputStream2);
-             BufferedReader bufferedReader2 = new BufferedReader(inputStreamReader2)) {
-
+    private void processAlbumFile(String albumName) {
+        try (FileInputStream fileInputStream = openFileInput(albumName + ".list");
+             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
             String lineIn;
-            while ((lineIn = bufferedReader2.readLine()) != null) {
-                masterList.add(lineIn);
+            while ((lineIn = bufferedReader.readLine()) != null) {
+                if (lineIn.startsWith("TAG:")) {
+                    searched.get(searched.size() - 1).addTag(lineIn.substring(4));
+                } else {
+                    searched.add(new Photo(Uri.parse(lineIn)));
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        for (String input : masterList) {
-            if (input.startsWith("TAG:")) {
-                searched.get(searched.size() - 1).addTag(input.substring(4));
-            } else {
-                searched.add(new Photo(Uri.parse(input)));
-            }
-        }
     }
 
+    // Writes search results to a file
     public void write() {
         try (FileOutputStream fileOutputStream = openFileOutput("SearchRes.list", MODE_PRIVATE)) {
             StringBuilder strBuilder = new StringBuilder();
             for (Photo u : sList) {
-                ArrayList<String> tgs = new ArrayList<>();
                 strBuilder.append(u.getUri().toString()).append("\n");
                 for (Tag t : u.tags) {
-                    if (!tgs.contains(t.toString())) {
-                        strBuilder.append("TAG:").append(t.toString()).append("\n");
-                        tgs.add(t.toString());
-                    }
+                    strBuilder.append("TAG:").append(t.toString()).append("\n");
                 }
             }
             fileOutputStream.write(strBuilder.toString().getBytes());
