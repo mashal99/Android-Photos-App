@@ -1,11 +1,11 @@
+/*
+ * Name: Ahmed Mashaal
+ * ID: amm884
+ */
+
 package com.example.android77;
 
 import java.io.Serializable;
-
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
 
 public class Tag implements Serializable {
     public String type;

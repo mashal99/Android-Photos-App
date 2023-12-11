@@ -1,3 +1,8 @@
+/*
+ * Name: Ahmed Mashaal
+ * ID: amm884
+ */
+
 package com.example.android77;
 
 
@@ -10,12 +15,6 @@ import android.view.ViewGroup;
 import android.net.Uri;
 
 import java.util.ArrayList;
-
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
-
 public class ImageAdapter extends BaseAdapter {
     private Context context;
 
