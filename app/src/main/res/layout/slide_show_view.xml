@@ -1,19 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-    <EditText
-        android:id="@+id/searchInput"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Current"/>
+
+    <GridView
+        android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter search terms"
-        android:inputType="text"/>
+        android:layout_below="@id/imageView"
+        android:numColumns="2"/>
 
     <Button
-        android:id="@+id/btnSearch"
+        android:id="@+id/prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchInput"
-        android:text="Search"/>
+        android:layout_below="@id/gridView"
+        android:text="Previous"/>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gridView"
+        android:layout_toRightOf="@id/prev"
+        android:text="Next"/>
+
+    <Button
+        android:id="@+id/Add_Tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prev"
+        android:text="Add Tag"/>
+
+    <Button
+        android:id="@+id/Del_Tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prev"
+        android:layout_toRightOf="@id/Add_Tag"
+        android:text="Delete tag"/>
 </RelativeLayout>

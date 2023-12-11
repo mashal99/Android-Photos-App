@@ -1,11 +1,9 @@
-package com.AJ_David.photos;
-
+package com.example.android77;
 
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,18 +12,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
 
 public class SlideShowView extends AppCompatActivity {
     public static int index;
@@ -54,7 +47,7 @@ public class SlideShowView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_slide_show_view);
+        setContentView(R.layout.slide_show_view);
 
         index = AlbumView.index;
 

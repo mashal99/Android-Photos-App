@@ -1,16 +1,17 @@
-package com.AJ_David.photos;
+package com.example.android77;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -20,19 +21,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
-public class AlbumView extends AppCompatActivity {
-    private static final int READ_REQUEST_CODE = 42;
+ public class AlbumView extends AppCompatActivity {
+    private static final int REQUEST_CODE = 42;
     public static ImageAdapter imgAdapter;
     public static GridView gridView;
     Button add, copy, paste, display, delete, move;
 
     public static int index = 0;
 
-    private static Photo photoCopy;
 
     public static Album album = new Album();
 
@@ -48,14 +44,14 @@ public class AlbumView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_album_view);
+        setContentView(R.layout.album_view);
 
-        gridView = findViewById(R.id.GridView);
+        gridView = findViewById(R.id.photoGridView);
         add = (Button) findViewById(R.id.add);
         if (HomeScreen.albumName.equals("SearchRes")){
             add.setVisibility(View.INVISIBLE);
         }
-        copy = findViewById(R.id.Copy);
+        copy = findViewById(R.id.copy);
         copy.setVisibility(View.INVISIBLE);
         paste = (Button) findViewById(R.id.paste);
         paste.setVisibility(HomeScreen.isCopy ? View.VISIBLE : View.INVISIBLE);
@@ -67,7 +63,7 @@ public class AlbumView extends AppCompatActivity {
         move.setVisibility(View.INVISIBLE);
 
         imgAdapter = new ImageAdapter(this);
-        final GridView gridview = (GridView) findViewById(R.id.GridView);
+        final GridView gridview = (GridView) findViewById(R.id.photoGridView);
 
         read();
 
@@ -80,7 +76,7 @@ public class AlbumView extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
-                startActivityForResult(intent, READ_REQUEST_CODE);
+                startActivityForResult(intent, REQUEST_CODE);
 
             }
 
@@ -164,7 +160,7 @@ public class AlbumView extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == READ_REQUEST_CODE  && resultCode  == RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE  && resultCode  == RESULT_OK && data != null) {
 
             index++;
             Photo picture = new Photo(data.getData());

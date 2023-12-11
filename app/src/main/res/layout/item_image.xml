@@ -1,44 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Example: item_image.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
 
-    <!-- Welcome Message -->
-    <TextView
-        android:id="@+id/welcomeTextView"
+    <!-- ImageView for displaying an image -->
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to the Album App"
-        android:textSize="24sp"
-        android:layout_gravity="center_horizontal"/>
+        android:src="@drawable/ic_launcher_background" />
 
-    <!-- Button to Create a New Album -->
-    <Button
-        android:id="@+id/buttonCreateAlbum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Album"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"/>
-
-    <!-- RecyclerView for Displaying Albums -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAlbums"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone"/> <!-- Initially hidden -->
-
-    <!-- Text View for 'No Albums' Message -->
-    <TextView
-        android:id="@+id/noAlbumsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Albums"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"/> <!-- Initially hidden -->
-
+    <!-- Additional elements like TextView for captions can be added -->
 </LinearLayout>

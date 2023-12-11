@@ -14,31 +14,69 @@
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"/>
 
-    <!-- Button to Create a New Album -->
-    <Button
-        android:id="@+id/buttonCreateAlbum"
-        android:layout_width="wrap_content"
+    <!-- Button Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Album"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
 
-    <!-- RecyclerView for Displaying Albums -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAlbums"
+        <!-- Button to Create a New Album -->
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search" />
+
+        <Button
+            android:id="@+id/newButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Album"/>
+
+        <!-- Button to Open an Album -->
+        <Button
+            android:id="@+id/open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open Album"
+            android:visibility="invisible"/>
+
+        <!-- Button to Delete an Album -->
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Album"
+            android:visibility="invisible"/>
+
+        <!-- Button to Rename an Album -->
+        <Button
+            android:id="@+id/rename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rename Album"
+            android:visibility="invisible"/>
+
+        <!-- Button to Search -->
+        <Button
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"/>
+    </LinearLayout>
+
+    <!-- GridView for Displaying Albums -->
+    <GridView
+        android:id="@+id/gridView1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:visibility="gone"/> <!-- Initially hidden -->
-
-    <!-- Text View for 'No Albums' Message -->
-    <TextView
-        android:id="@+id/noAlbumsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Albums"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"/> <!-- Initially hidden -->
-
+        android:numColumns="2"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:padding="10dp"
+        android:gravity="center"/>
 </LinearLayout>

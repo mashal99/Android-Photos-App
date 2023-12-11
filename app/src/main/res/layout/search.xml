@@ -3,17 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/newAlbumName"
+    <RadioGroup
+        android:id="@+id/radiogroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter New Album Name"
-        android:inputType="text"/>
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"/>
+
+        <RadioButton
+            android:id="@+id/person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Person"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/data"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Enter search terms"
+    android:layout_below="@id/radiogroup"
+    android:inputType="text"/>
 
     <Button
-        android:id="@+id/btnCreateAlbum"
+        android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/newAlbumName"
-        android:text="Create Album"/>
+        android:layout_below="@id/data"
+        android:text="Search"/>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/data"
+        android:layout_toRightOf="@id/search"
+        android:text="Cancel"/>
 </RelativeLayout>

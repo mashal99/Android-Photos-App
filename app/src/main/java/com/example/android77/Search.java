@@ -1,14 +1,15 @@
-package com.AJ_David.photos;
+package com.example.android77;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,10 +20,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
 
 public class Search extends AppCompatActivity {
     private RadioButton loc, person;
@@ -36,7 +33,7 @@ public class Search extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.search);
 
 
         rg = (RadioGroup) findViewById(R.id.radiogroup);

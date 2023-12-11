@@ -1,4 +1,4 @@
-package com.AJ_David.photos;
+package com.example.android77;
 
 
 import android.widget.BaseAdapter;

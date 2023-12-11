@@ -1,12 +1,8 @@
-package com.AJ_David.photos;
+package com.example.android77;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
 
 public class Album implements Serializable {
     private String albumName;

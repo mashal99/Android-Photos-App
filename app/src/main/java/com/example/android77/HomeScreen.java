@@ -1,11 +1,10 @@
-package com.AJ_David.photos;
+package com.example.android77;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -14,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,10 +25,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
 
 public class HomeScreen extends AppCompatActivity {
     public static GridView gridView;
@@ -66,8 +63,7 @@ public class HomeScreen extends AppCompatActivity {
             albums.add(s);
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, albums);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albums);
 
         gridView.setAdapter(arrayAdapter);
 
@@ -78,6 +74,15 @@ public class HomeScreen extends AppCompatActivity {
                 open.setVisibility(View.VISIBLE);
                 delete.setVisibility(View.VISIBLE);
                 rename.setVisibility(View.VISIBLE);
+            }
+        });
+
+        Button btnSearch = findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this, Search.class);
+                startActivity(intent);
             }
         });
 

@@ -1,23 +1,18 @@
-package com.AJ_David.photos;
+package com.example.android77;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * @author David Duong dd831
- * @author Aditya Jani amj165
- */
 
 public class NewTag extends AppCompatActivity {
     private RadioButton loc, person;
@@ -29,7 +24,7 @@ public class NewTag extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_tag);
+        setContentView(R.layout.new_tag);
 
         rg = (RadioGroup) findViewById(R.id.radiogroup);
 
@@ -40,52 +35,44 @@ public class NewTag extends AppCompatActivity {
         send = (Button) findViewById(R.id.add);
         cancel = (Button) findViewById(R.id.cancel);
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        cancel.setOnClickListener(view -> finish());
 
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<String> tags = new ArrayList<>();
+        send.setOnClickListener(view -> {
+            ArrayList<String> tags = new ArrayList<>();
 
-                for (Tag t: AlbumView.imgAdapter.uris.get(SlideShowView.index).tags) {
-                    if (!(tags.contains(t.toString()))){
-                        tags.add(t.toString());
-                    }
+            for (Tag t: ImageAdapter.uris.get(SlideShowView.index).tags) {
+                if (!(tags.contains(t.toString()))){
+                    tags.add(t.toString());
                 }
+            }
 
-                type = rg.getCheckedRadioButtonId();
-                if (!tagData.getText().toString().equals("")) {
-                    switch (type) {
-                        case 2131165275:
-                            if (tags.contains("Location=" + tagData.getText().toString())) {
-                                Toast.makeText(getApplicationContext(), "This tag already exists", Toast.LENGTH_SHORT).show();
-                            } else {
-                                AlbumView.imgAdapter.uris.get(SlideShowView.index).addTag("Location=" + tagData.getText().toString()); SlideShowView.gridView.setAdapter(SlideShowView.tagAdapter);
-                                write();
-                                finish();
-                            }
+            type = rg.getCheckedRadioButtonId();
+            if (!tagData.getText().toString().equals("")) {
+                switch (type) {
+                    case 2131165275:
+                        if (tags.contains("Location=" + tagData.getText().toString())) {
+                            Toast.makeText(getApplicationContext(), "This tag already exists", Toast.LENGTH_SHORT).show();
+                        } else {
+                            ImageAdapter.uris.get(SlideShowView.index).addTag("Location=" + tagData.getText().toString()); SlideShowView.gridView.setAdapter(SlideShowView.tagAdapter);
+                            write();
+                            finish();
+                        }
 
-                            break;
-                        case 2131165294:
-                            if (tags.contains("Person=" + tagData.getText().toString())) {
-                                Toast.makeText(getApplicationContext(), "This tag already exists", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                AlbumView.imgAdapter.uris.get(SlideShowView.index).addTag("Person=" + tagData.getText().toString());
-                                SlideShowView.gridView.setAdapter(SlideShowView.tagAdapter);
-                                write();
-                                finish();
-                            }
-                            break;
-                        default:
-                            break;
+                        break;
+                    case 2131165294:
+                        if (tags.contains("Person=" + tagData.getText().toString())) {
+                            Toast.makeText(getApplicationContext(), "This tag already exists", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            ImageAdapter.uris.get(SlideShowView.index).addTag("Person=" + tagData.getText().toString());
+                            SlideShowView.gridView.setAdapter(SlideShowView.tagAdapter);
+                            write();
+                            finish();
+                        }
+                        break;
+                    default:
+                        break;
 
-                    }
                 }
             }
         });
@@ -112,13 +99,7 @@ public class NewTag extends AppCompatActivity {
             fileOutputStream.write(str.getBytes());
 
         }
-        catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
-        catch(ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
-        }
-        catch(IOException e){
+        catch(ArrayIndexOutOfBoundsException | IOException e){
             e.printStackTrace();
         }
     }
