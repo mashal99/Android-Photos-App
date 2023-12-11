@@ -1,64 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SlideShowView"
     android:orientation="vertical"
+    tools:context=".SlideShowView"
     android:padding="8dp">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="215dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/prev"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/prev" />
+            android:text="@string/prev"
+            android:layout_marginEnd="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/next"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/next" />
+            android:text="@string/next"/>
     </LinearLayout>
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="187dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/Add_Tag"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/add_tag" />
+            android:text="@string/add_tag"
+            android:layout_marginEnd="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/Del_Tag"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/delete_tag"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"/>
     </LinearLayout>
 
 </LinearLayout>
