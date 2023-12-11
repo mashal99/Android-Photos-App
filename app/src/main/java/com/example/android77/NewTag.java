@@ -24,7 +24,7 @@ public class NewTag extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_tag);
+        setContentView(R.layout.activity_new_tag);
 
         rg = (RadioGroup) findViewById(R.id.radiogroup);
 

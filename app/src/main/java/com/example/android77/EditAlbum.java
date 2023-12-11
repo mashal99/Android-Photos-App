@@ -28,7 +28,7 @@ public class EditAlbum extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_album);
+        setContentView(R.layout.activity_edit_album);
 
         final EditText albumName =  (EditText) findViewById(R.id.albumName);
         Button createButton =  (Button) findViewById(R.id.create),

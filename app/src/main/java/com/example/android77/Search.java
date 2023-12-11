@@ -33,7 +33,7 @@ public class Search extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search);
+        setContentView(R.layout.activity_search);
 
 
         rg = (RadioGroup) findViewById(R.id.radiogroup);

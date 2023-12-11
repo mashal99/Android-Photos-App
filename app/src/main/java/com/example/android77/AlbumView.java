@@ -44,14 +44,14 @@ import java.util.ArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.album_view);
+        setContentView(R.layout.activity_album_view);
 
-        gridView = findViewById(R.id.photoGridView);
+        gridView = findViewById(R.id.GridView);
         add = (Button) findViewById(R.id.add);
         if (HomeScreen.albumName.equals("SearchRes")){
             add.setVisibility(View.INVISIBLE);
         }
-        copy = findViewById(R.id.copy);
+        copy = findViewById(R.id.Copy);
         copy.setVisibility(View.INVISIBLE);
         paste = (Button) findViewById(R.id.paste);
         paste.setVisibility(HomeScreen.isCopy ? View.VISIBLE : View.INVISIBLE);
@@ -63,7 +63,7 @@ import java.util.ArrayList;
         move.setVisibility(View.INVISIBLE);
 
         imgAdapter = new ImageAdapter(this);
-        final GridView gridview = (GridView) findViewById(R.id.photoGridView);
+        final GridView gridview = (GridView) findViewById(R.id.GridView);
 
         read();
 

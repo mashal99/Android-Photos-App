@@ -77,15 +77,6 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
-        Button btnSearch = findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this, Search.class);
-                startActivity(intent);
-            }
-        });
-
         delete.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
